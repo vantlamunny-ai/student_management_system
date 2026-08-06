@@ -9,6 +9,7 @@ import AdminDashboard from "./pages/AdminDashboard"
 import StudentDashboard from "./pages/StudentDashboard"
 import FacultyDashboard from "./pages/FacultyDashboard"
 import NotFound from "./pages/NotFound"
+import Events from "./pages/Events";
 import ProtectedRoute from "./components/ProtectedRoute"
 export default function App(){
   return(
@@ -28,6 +29,7 @@ export default function App(){
             <Route path="/faculty" element={<ProtectedRoute>
               <FacultyDashboard/>
             </ProtectedRoute>}/>
+             <Route path="/events" element={<Events />} />
             <Route path="*" element={<NotFound/>}/>
         </Routes>
     </>

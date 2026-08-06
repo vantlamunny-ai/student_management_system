@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
+
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -25,9 +26,16 @@ const Register = () => {
   };
 
   const validate = () => {
-    if (!formData.name.trim()) return "Name is required";
-    if (!formData.email.trim()) return "Email is required";
-    if (!formData.password.trim()) return "Password is required";
+
+    if (!formData.name.trim())
+      return "Full Name is required";
+
+    if (!formData.email.trim())
+      return "Email is required";
+
+    if (!formData.password.trim())
+      return "Password is required";
+
     if (formData.password.length < 3)
       return "Password must be at least 3 characters";
 
@@ -35,6 +43,7 @@ const Register = () => {
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     const validationError = validate();
@@ -49,69 +58,88 @@ const Register = () => {
     setSuccess("");
 
     try {
-      const response = await register(
+
+      await register(
         formData.name,
         formData.email,
         formData.password,
         formData.role
       );
 
-      console.log("Registration Response:", response);
-
-      setSuccess("Registration Successful");
+      setSuccess("Registration Successful!");
 
       setTimeout(() => {
         navigate("/login");
-      }, 1000);
+      }, 1500);
 
-    } catch (err) {
-      console.log("Registration Error:", err);
+    }
+
+    catch (err) {
 
       if (err.response) {
         setError(err.response.data.message);
-      } else {
-        setError("Cannot connect to backend server");
       }
-    } finally {
-      setLoading(false);
+
+      else {
+        setError("Cannot connect to backend server.");
+      }
+
     }
+
+    finally {
+
+      setLoading(false);
+
+    }
+
   };
 
   return (
-    <div>
-      <h2>Create Account</h2>
 
-      {error && (
-        <p style={{ color: "red" }}>
-          {error}
+    <div className="auth-container">
+
+      <div className="auth-card">
+
+        <h2>Create Account</h2>
+
+        <p className="subtitle">
+          Join the Student Management System
         </p>
-      )}
 
-      {success && (
-        <p style={{ color: "green" }}>
-          {success}
-        </p>
-      )}
+        {error &&
 
-      <form onSubmit={handleSubmit}>
+          <div className="error">
 
-        <div>
+            {error}
+
+          </div>
+
+        }
+
+        {success &&
+
+          <div className="success">
+
+            {success}
+
+          </div>
+
+        }
+
+        <form onSubmit={handleSubmit}>
+
           <label>Full Name</label>
-          <br />
+
           <input
             type="text"
             name="name"
-            placeholder="Enter your name"
+            placeholder="Enter your full name"
             value={formData.name}
             onChange={handleChange}
           />
-        </div>
 
-        <br />
+          <label>Email Address</label>
 
-        <div>
-          <label>Email</label>
-          <br />
           <input
             type="email"
             name="email"
@@ -119,13 +147,9 @@ const Register = () => {
             value={formData.email}
             onChange={handleChange}
           />
-        </div>
 
-        <br />
-
-        <div>
           <label>Password</label>
-          <br />
+
           <input
             type="password"
             name="password"
@@ -133,13 +157,9 @@ const Register = () => {
             value={formData.password}
             onChange={handleChange}
           />
-        </div>
 
-        <br />
-
-        <div>
           <label>Role</label>
-          <br />
+
           <select
             name="role"
             value={formData.role}
@@ -149,24 +169,34 @@ const Register = () => {
             <option value="Faculty">Faculty</option>
             <option value="Admin">Admin</option>
           </select>
+
+          <button
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Creating Account..." : "Register"}
+          </button>
+
+        </form>
+
+        <div className="bottom-text">
+
+          Already have an account?
+
+          <Link to="/login">
+
+            Login
+
+          </Link>
+
         </div>
 
-        <br />
+      </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Registering..." : "Register"}
-        </button>
-
-      </form>
-
-      <br />
-
-      <p>
-        Already have an account?{" "}
-        <Link to="/login">Login Here</Link>
-      </p>
     </div>
+
   );
+
 };
 
 export default Register;
