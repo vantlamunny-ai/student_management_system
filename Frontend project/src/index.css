@@ -931,3 +931,85 @@ table td{
 .admin-table tr:hover{
     background:#f4f8ff;
 }
+/* ===========================
+   STATUS PAGES
+=========================== */
+
+.page-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:80vh;
+    padding:20px;
+}
+
+.status-card{
+    width:100%;
+    max-width:500px;
+    background:#ffffff;
+    padding:40px;
+    border-radius:16px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.10);
+}
+
+.status-icon{
+    font-size:70px;
+    margin-bottom:20px;
+}
+
+.status-card h1{
+    color:#1e3a8a;
+    margin-bottom:15px;
+    font-size:36px;
+}
+
+.status-card h2{
+    color:#374151;
+    margin-bottom:15px;
+    font-size:26px;
+}
+
+.status-card p{
+    color:#6b7280;
+    font-size:17px;
+    margin-bottom:30px;
+    line-height:1.6;
+}
+
+.status-card button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 28px;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.status-card button:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+@media (max-width:768px){
+
+    .status-card{
+        padding:30px 20px;
+    }
+
+    .status-card h1{
+        font-size:30px;
+    }
+
+    .status-card h2{
+        font-size:22px;
+    }
+
+    .status-icon{
+        font-size:60px;
+    }
+
+}
